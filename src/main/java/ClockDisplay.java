@@ -1,33 +1,40 @@
 
-public class ClockDisplay
-{
-    //Implement 2 private NumberDisplay objects. 
-    //  One for hours and one for minutes
-    //Implement a private String for the display
+public class ClockDisplay {
+    private NumberDisplay hours;
+    private NumberDisplay minutes;
+    private String displayString;
 
-    //Implement a constructor that takes no parameters
-    //The constructor should set hours as a NumberDisplay object with 24 as the limit
-    //The constructor should set minutes as a NumberDisplay object with 60 as the limit
-    //The constructor should call the method updateDisplay before finishing
-    
-    //Implement a constructor that takes 2 parameters, hour and minute
-    //The constructor should set hours as a NumberDisplay object with 24 as the limit
-    //The constructor should set minutes as a NumberDisplay object with 60 as the limit
-    //The constructor should call the method setTime with the parameters passed in
-    
-    //Implement a method timeTick that takes no parameters and returns nothing
-    //The method should increase the minute value by one each run
-    //The hours should increase when the minutes roll over
-    //The updateDisplay method should be called before finishing
-    
-    //Implement a method setTime that takes in 2 parameters, hour and minute
-    //The method should set the hours value and minutes value
-    //The updateDisplay method should be called before finishing
-    
-    //Implement a method getTime that takes no parameter and returns a String
-    //The return String should be formatted as HH:MM and report out the current time
+    public ClockDisplay() {
+        hours = new NumberDisplay(24);
+        minutes = new NumberDisplay(60);
+        updateDisplay();
+    }
 
-    //Implement a method updateDisplay that takes no parameters and returns nothing
-    //The method should update the displayString with the current time in a format
-    //  HH:MM
+    public ClockDisplay(int hour, int minute) {
+        hours = new NumberDisplay(24);
+        minutes = new NumberDisplay(60);
+        setTime(hour, minute);
+    }
+
+    public void timeTick() {
+        minutes.increment();
+        if (minutes.getValue() == 0) {
+            hours.increment();
+        }
+        updateDisplay();
+    }
+
+    public void setTime(int hour, int minute) {
+        hours.setValue(hour);
+        minutes.setValue(minute);
+        updateDisplay();
+    }
+
+    public String getTime() {
+        return displayString;
+    }
+
+    private void updateDisplay() {
+        displayString = hours.getDisplayValue() + ":" + minutes.getDisplayValue();
+    }
 }
