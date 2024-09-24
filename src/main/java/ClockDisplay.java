@@ -16,12 +16,8 @@ public class ClockDisplay {
         setTime(hour, minute);
     }
 
-    public void timeTick() {
-        minutes.increment();
-        if (minutes.getValue() == 0) {
-            hours.increment();
-        }
-        updateDisplay();
+    public String getTime() {
+        return displayString;
     }
 
     public void setTime(int hour, int minute) {
@@ -30,11 +26,17 @@ public class ClockDisplay {
         updateDisplay();
     }
 
-    public String getTime() {
-        return displayString;
+    public void timeTick() {
+        minutes.increment();
+        if (minutes.getValue() == 0) {
+            hours.increment();
+        }
+        updateDisplay();
     }
 
     private void updateDisplay() {
-        displayString = hours.getDisplayValue() + ":" + minutes.getDisplayValue();
+        String hourStr = hours.getDisplayValue();
+        String minuteStr = minutes.getDisplayValue();
+        displayString = String.format("%s:%s", hourStr, minuteStr);
     }
 }
